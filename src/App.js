@@ -18,7 +18,7 @@ const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 function PublicPage() {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-      <h1 className="text-4xl text-white font-bold mb-5">Public page</h1>
+      <h1 className="text-[80px] text-white font-bold mb-5">Job Portal Apply For Jobs Now!!!</h1>
       <a
         href="/protected"
         className="text-white underline hover:text-purple-200"
