@@ -1,0 +1,12 @@
+.custom_class{
+
+    width: 40.73px;
+    height: 40.83px;
+
+    
+    /* Primary/Salmon 60 */
+    
+    background: #F75961;
+    clip-path: polygon(26% 3%, 64% 19%, 96% 50%, 72% 77%, 26% 97%, 6% 48%);
+    /* transform: rotate(45deg); */
+}
