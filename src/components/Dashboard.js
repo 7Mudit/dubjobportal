@@ -4,6 +4,9 @@ import Board from "../components/Board";
 import { AiOutlinePlus } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import "./Dashboard.css";
+import {
+  UserButton
+} from "@clerk/clerk-react";
 
 const Dashboard = ({ showModal, setShowModal, showJobModal , setShowJobModal, myBoards, setMyBoards }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,6 +53,9 @@ const Dashboard = ({ showModal, setShowModal, showJobModal , setShowJobModal, my
             <AiOutlinePlus size={22} />
             Create new Job
           </button>
+          <div className="self-center">
+            <UserButton/>
+          </div>
         </div>
       </div>
       {/* My boards section */}
