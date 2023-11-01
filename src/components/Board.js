@@ -7,6 +7,8 @@ import IconBtn from "./IconBtn";
 import { useLoadScript } from "@react-google-maps/api";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { css } from "@emotion/react"; // for styling the spinner
+import { BeatLoader } from "react-spinners"; //
 
 const libraries = ["places"];
 const Board = ({ board, showJobModal, setShowJobModal }) => {
@@ -19,7 +21,7 @@ const Board = ({ board, showJobModal, setShowJobModal }) => {
     formState: { errors },
     watch,
     setError,
-    reset // Destructure reset here
+    reset, // Destructure reset here
   } = useForm();
   const [phone, setPhone] = useState("");
 
@@ -51,17 +53,51 @@ const Board = ({ board, showJobModal, setShowJobModal }) => {
     // await getUserDetails(data)
     data.jobTitle = text;
     console.log("Data for my form ", data);
-    const response = await axios.post("https://jobabbackend.onrender.com/api/v1/apply", data);
-    if (response.data.success === "true") {
-      toast.success("You registered successfully");
-    } else {
-      toast.error("Sorry our servers are down currently");
+    // Show loader using toast
+    const toastId = toast.info(
+      <div className="flex items-center space-x-3">
+        <BeatLoader
+          color={"#D33852"}
+          loading={true}
+          css={css`
+            display: block;
+            margin: 0 auto;
+          `}
+          size={15}
+        />
+        <span>Processing...</span>
+      </div>,
+      {
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
       }
+    );
+
+    try {
+      const response = await axios.post(
+        "https://jobabbackend.onrender.com/api/v1/apply",
+        data
+      );
+      console.log(response);
+      // Close the loader toast
+      toast.dismiss(toastId);
+
+      if (response.data.success === true) {
+        toast.success("You registered successfully");
+      } else {
+        toast.error("Sorry our servers are down currently");
+      }
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error("An error occurred!");
+    } finally {
       setShowJobModal(false);
       reset();
       setPhone("");
-
-      
+    }
   };
 
   const { isLoaded, loadError } = useLoadScript({
